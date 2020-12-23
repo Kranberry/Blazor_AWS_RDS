@@ -1,0 +1,45 @@
+﻿#NavBar {
+    display: flex;
+    justify-content: center;
+    width: 20vw;
+    height: 100vh;
+    border-right: 3px outset black;
+    background-color: rgb(120, 130, 150);
+}
+
+ul{
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+ul li{
+    width: 20vw;
+    height: 8vh;
+}
+
+ul li p{
+    margin-left: 6vw;
+    margin-right: auto;
+    font-size: 2em;
+    text-decoration: none;
+    color: white;
+}
+    ul li a:hover{
+        text-decoration: none;
+        color: white;
+    }
+
+    ul li a div {
+        display: flex;
+        align-items: center;
+        background-color: rgb(130, 150, 185);
+        border-right: 3px outset black;
+        border-bottom: 1px solid black;
+        width: 20vw;
+        height: 8vh;
+    }
+        ul li a div:hover {
+            background-color: rgb(105, 120, 145);
+        }

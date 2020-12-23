@@ -1,0 +1,20 @@
+﻿@page "/"
+
+<h1>Blazor web app sonnected to AWS RDS</h1>
+
+<h3>Amount of users in the database</h3>
+<p>@amountOfUsers</p>
+<button @onclick="(() => UpdateCount())">Refresh count</button>
+
+@code
+{
+    DbHandlerPostgresSQL db = new DbHandlerPostgresSQL();
+
+    int amountOfUsers { get; set; } = 0;
+    bool connected { get; set; } = false;
+
+    void UpdateCount()
+    {
+        amountOfUsers = db.GetAmountOfUsers();
+    }
+}

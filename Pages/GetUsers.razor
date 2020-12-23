@@ -1,0 +1,57 @@
+﻿@page "/GetUsers"
+
+<link rel="stylesheet" href="css/AddUser.css" />
+<link rel="stylesheet" href="css/GetUsers.css" />
+
+<h1>View created users here</h1>
+
+<form>
+    <input @bind="ID" placeholder="" />
+    <button @onclick="(() => GetUser())" @onclick:preventDefault="true">Get User</button>
+</form>
+
+<table>
+    <tr>
+        <td>ID</td>
+        <td>First Name</td>
+        <td>Last Name</td>
+        <td>Email</td>
+    </tr>
+    @foreach (User element in users)
+    {
+        @if (evenTr)
+        {
+            backColorTableRow = "rgb(100, 110, 130)";
+            evenTr = false;
+        }
+        else
+        {
+            backColorTableRow = "rgb(120, 130, 150)";
+            evenTr = true;
+        }
+        <tr style="background-color: @backColorTableRow;">
+            <td>@element.ID</td>
+            <td>@element.FirstName</td>
+            <td>@element.LastName</td>
+            <td>@element.Email</td>
+        </tr>
+    }
+</table>
+
+
+
+@code {
+    DbHandlerPostgresSQL db = new DbHandlerPostgresSQL();
+
+    int ID { get; set; }
+
+    bool evenTr = false;
+    string backColorTableRow;
+
+    List<User> users = new List<User>();
+
+    public void GetUser()
+    {
+        users = db.GetUser("Users", ID);
+    }
+}

@@ -1,0 +1,56 @@
+﻿@page "/AddUser"
+
+<link href="css/AddUser.css" rel="stylesheet" />
+
+<h1>Add a user here yooo!</h1>
+
+<form>
+    <input @bind="firstName" placeholder="FirstName" />
+    <input @bind="lastName" placeholder="LastName" />
+    <input @bind="email" placeholder="R2D2@Star-trek.com" />
+    <button @onclick="(() => CreateUser())" @onclick:preventDefault="true">Create User</button>
+</form>
+
+@if (errorCreatingUser)
+{
+    <h3 style="color: red;">Things are entered wrong duud</h3>
+}
+else if (createdSuccessful)
+{
+    <h3 style="color: greenyellow;">User created successfully</h3>
+}
+
+@code {
+    // Create the instance of the database handler class
+    DbHandlerPostgresSQL db = new DbHandlerPostgresSQL();
+
+    bool createdSuccessful = false;
+    bool errorCreatingUser = false;
+
+    string firstName = "";
+    string lastName = "";
+    string email = "";
+
+    private bool UserCreationSuccessful()
+    {
+        // Do some bad checking to see if the fields are all filled in
+        if(firstName.Length < 3 || lastName.Length < 3 || email.Length < 6)
+        {
+            errorCreatingUser = true;
+            createdSuccessful = false;
+            return false;
+        }
+        errorCreatingUser = false;
+        createdSuccessful = true;
+        return true;
+    }
+
+    void CreateUser()
+    {
+        if (!UserCreationSuccessful())
+            return;
+
+        User user = new User(firstName, lastName, email);
+        Console.WriteLine(db.Insert("Users", new string[] { "FirstName", "LastName", "email" }, new string[] { firstName, lastName, email }));
+    }
+}

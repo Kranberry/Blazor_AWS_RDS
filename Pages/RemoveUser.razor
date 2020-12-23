@@ -1,0 +1,20 @@
+﻿@page "/RemoveUser"
+
+<link rel="stylesheet" href="css/AddUser.css" />
+
+<h1>Remove a user here :()</h1>
+
+<form>
+    <input @bind="id" placeholder="ID" />
+    <button @onclick:preventDefault="true" @onclick="(() => RemoveSelectedUser())">Remove User</button>
+</form>
+
+@code {
+    DbHandlerPostgresSQL db = new DbHandlerPostgresSQL();
+    int id { get; set; }
+
+    public void RemoveSelectedUser()
+    {
+        db.RemoveUser("Users", id);
+    }
+}
